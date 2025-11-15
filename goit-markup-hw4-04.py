@@ -8,8 +8,8 @@ def add_contact(args, contacts):
     return "Contact added."
 
 
-def change_contact(*args, contacts):
-    if len(*args) != 2:
+def change_contact(args, contacts):
+    if len(args) != 2:
         return "Error: Please provide a name and a new phone number."
     name, new_phone = args
     if name not in contacts: 
@@ -38,8 +38,9 @@ def show_all(contacts):
     return "\n".join(result)
      
 def parse_input(user_input):
-    cmd, args = user_input.split()
-    cmd = cmd.strip().lower()
+    parts = user_input.split(maxsplit=1)
+    cmd = parts[0].strip().lower()
+    args = parts[1].split() if len(parts) > 1 else []
     return cmd, args
      
 def main():
@@ -63,7 +64,7 @@ def main():
         elif command == "all":
             print(show_all(contacts))                       
         else:
-            print("Invalid command.")h
+            print("Invalid command.")
 
 
 if __name__ == "__main__":
